@@ -8,14 +8,11 @@ export AWS_CREDENTIAL_FILE=/root/.aws_cred
 #export SSH_TTY
 #export SSH_AUTH_SOCK
 #export SSH_CONNECTION
-if [ -f $HOSTFILE ];then
-    sudo rm $HOSTFILE
-fi
 
 if [ `whoami` != 'root' ]
 then
     sudo $0
-#    exit
+    exit
 fi
 # Only update if there has been a login more recently than the last update
 #if [ $TEST -nt $HOSTS ]
@@ -25,7 +22,7 @@ fi
     list_instances --headers PrivateIP,T:Name | grep internal | awk '{print $1,$2"."$4}' >> $TEMP
 #    list_instances --headers PrivateIP,T:Name | grep -v "^\(Private\|None\|IP\|T:Name\|-\)" | awk '{print $1,$2"."$4}'|sort -k 2 >> $TEMP
     chmod 644 $TEMP
-    sudo mv $TEMP /tmp/hosts
+    mv $TEMP /tmp/hosts
 #fi
 
 

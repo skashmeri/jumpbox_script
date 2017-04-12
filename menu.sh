@@ -12,7 +12,7 @@ hostname=`hostname`
 MENULIST=()
 for ((i=0; i<${#menu_options[@]}; i++))
 do
-    MENULIST+=("$i" "${server_options[$i]} - ${menu_options[$i]}")
+    MENULIST+=("$i" "${menu_options[$i]} - ${server_options[$i]}")
 done
 
 choice=$(whiptail --title "$hostname - BASTION GATEWAY SSH PROXY" --ok-button "Login" --menu "Choose a server" 0 0 5 "${MENULIST[@]}"  2>&1 >/dev/tty)
@@ -20,7 +20,7 @@ choice=$(whiptail --title "$hostname - BASTION GATEWAY SSH PROXY" --ok-button "L
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
         echo "Connecting to ${menu_options[$choice]} - ${server_options[$choice]} ..."
-        ssh -A ${menu_options[$choice]}
+        ssh -A ${server_options[$choice]}
 else
     echo "Exiting..."
     exit
